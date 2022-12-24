@@ -1,12 +1,13 @@
 import sys
 import os
 import re
-dirpath = "/tbks/"
+#dirpath = "/tbks/"
+dirpath = "/台語文數位典藏資料庫-20221117T065608Z-001_tbk_test/"
 outfile = "demo_tbk.raw"
 outfile_CL = "raw.cl"
 outfile_HL = "raw.hl"
 start_CL = 0
-characters = "”-！,':!?[].()“「」，。？（）：﹙﹚‘、；;…" #過濾半形全形符>號
+characters = "”-－！,':!?[].()“「」，。？（）：﹙﹚‘、；;…" #過濾半形全形符>號
 check_CL = 0
 check_HL = 0
 delete_file_num = 0
@@ -125,14 +126,23 @@ for opf in file:
                             index = index + 1
                             continue
 
-                        if c == " " and skip != 0:
+                        if c == " ":
                             # print("skip: ",skip)
                             # print("c: ",index,c,)
-                            if skip_symbol == 1:
-                                line[index] = ' '
-                            for i in range(skip):
-                                line[index - int(skip)] = line[index - int(skip)] + line[index - int(skip) + i + 1]
-                                line[index - int(skip) + i + 1] = ' '
+                            if skip != 0:
+                                if skip_symbol == 1:
+                                    line[index] = ' '
+                                for i in range(skip):
+                                    line[index - int(skip)] = line[index - int(skip)] + line[index - int(skip) + i + 1]
+                                    line[index - int(skip) + i + 1] = ' '
+
+                            if skip_num != 0:
+                                for i in range(skip_num - 1):
+                                    line[index - int(skip_num)] = line[index - int(skip_num)] + line[
+                                        index - int(skip_num) + i + 1]
+                                    line[index - int(skip_num) + i + 1] = ' '
+
+                            skip_num = 0
                             skip = 0
                             # print(line)
 
@@ -183,5 +193,5 @@ with open(outfile_CL,'w') as file:
 
 with open(outfile_HL,'w') as file:
     file.write(lua_HL)
-
+print(delete_list)
 print(delete_file_num)
