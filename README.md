@@ -33,4 +33,20 @@ raw.cl，raw.hl
     perl ${NORM_PUNC} -l cl < ${data_dir}/raw.cl > ${data_dir}/norm.cl
     perl ${NORM_PUNC} -l hl < ${data_dir}/raw.hl > ${data_dir}/norm.hl
     
+# 台羅數據夾雜漢羅字串
+分析發現只有在符號’『……..』’才會出現，直接刪除符號內文。
+![image](https://user-images.githubusercontent.com/93703407/210078124-13198c10-3ad2-4bab-8b8d-cd4695fecf7e.png)
+
+
+# 台羅、漢羅每行的字數量不相稱
+用行數的判斷，若不相同則直接刪除tbk檔案，總共有10個檔案發生此現象。
+＜CL＞重覆出現文本
+![image](https://user-images.githubusercontent.com/93703407/210078062-aa0177e2-e1ae-48fb-93a9-3e3a5e1c0798.png)
+
+# 運行tbks.py對以上敘述問題做資料預處理
+    python tbks.py
+
+
+
+
 
