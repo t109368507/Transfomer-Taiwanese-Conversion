@@ -56,7 +56,7 @@ norm.cl，narm.hl
 分割資料比對最後數據Source與Target。<br />
 ![image](https://user-images.githubusercontent.com/93703407/210078796-b2d7ee94-5b34-40ea-93e7-4af0709c5780.png)
 
-# T目錄結構
+# Transformer目錄結構
     ~
     |── mosesdecoder
     |── fairseq
