@@ -48,6 +48,15 @@ norm.cl，narm.hl
 
 # 運行tbks.py對以上敘述問題做資料預處理
     python tbks.py
+    
+# 資料分割
+資料分割比例 9.5:0.5:0.5<br />
+train.cl、test.cl、valild.cl<br />
+train.hl、test.hl、valild.hl<br />
+
+    python ${utils}/split.py ${data_dir}/norm.hl ${data_dir}/norm.cl ${data_dir}/
+
+
 
 # 驗證對齊方式
 在分割資料時比對Source與Target。<br />
