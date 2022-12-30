@@ -61,7 +61,7 @@ delete_list = []
 for opf in file:
     print(opf)
     #開啟檔案
-    with open(current_directory + dirpath + opf, "r") as f:
+    with open(current_directory + dirpath + opf, "r", encoding='cp950') as f:
         #一次讀取檔案行做處理
         for line in f.readlines():
         
@@ -224,7 +224,7 @@ for opf in file:
         check_CL = 0
         check_HL = 0
         #刪除檔案，windows執行會有錯誤訊息
-        os.remove(current_directory+dirpath+opf)
+        # os.remove(current_directory+dirpath+opf)
         # sys.exit("結束程式")
     else:
         check_CL = 0
