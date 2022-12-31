@@ -27,6 +27,7 @@ raw.cl，raw.hl<br />
 
 # 漢羅台羅字對字對齊問題、多餘的空白行
 
+    . initial_taiwanese.sh
     SCRIPTS=~/fairseq/mosesdecoder/scripts
     NORM_PUNC=${SCRIPTS}/tokenizer/normalize-punctuation.perl
 
