@@ -84,4 +84,28 @@ train.hl、test.hl、valild.hl<br />
         └── scripts                 # 一些腳本
 
 
+# 訓練
+        fairseq-preprocess --source-lang ${src} --target-lang ${tgt} \
+    --trainpref ${data_dir}/train --validpref ${data_dir}/valid --testpref ${data_dir}/test \
+    --destdir ${data_dir}/data-bin
+
+      CUDA_VISIBLE_DEVICES=0,1 fairseq-train ${data_dir}/data-bin --arch transformer \
+	--source-lang ${src} --target-lang ${tgt}  \
+    --optimizer adam  --lr 0.001 --adam-betas '(0.9, 0.98)' \
+    --lr-scheduler inverse_sqrt --max-tokens 4096  --dropout 0.3 \
+    --criterion label_smoothed_cross_entropy  --label-smoothing 0.1 \
+    --max-update 200000  --warmup-updates 4000 --warmup-init-lr '1e-07' \
+    --keep-last-epochs 10 --num-workers 8 \
+	--save-dir ${model_dir}/checkpoints &![image](https://user-images.githubusercontent.com/93703407/218112331-54a403ed-c7c9-42c8-ab27-9a3cf82dbe85.png)
+
+# 結果確認
+    fairseq-generate ${data_dir}/data-bin \
+    --path ${model_dir}/checkpoints/checkpoint_best.pt \
+    --batch-size 128 --beam 8 > ${data_dir}/result/bestbeam8.txt
+    
+# BLEU分數
+    grep ^H ${data_dir}/result/bestbeam8.txt | cut -f3- > ${data_dir}/result/predict.cl
+    grep ^T ${data_dir}/result/bestbeam8.txt | cut -f2- > ${data_dir}/result/answer.cl
+    ${MULTI_BLEU} -lc ${data_dir}/result/answer.cl < ${data_dir}/result/predict.cl
+
 
